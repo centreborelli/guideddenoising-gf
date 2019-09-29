@@ -1,21 +1,25 @@
 # Guided Filter
 
-To execute this program you only need [GNU Octave](https://www.gnu.org/software/octave/), a C compiler and the make program. All the rest is included.
+This program implements K. He et al. guided filter as described in:
+- He, Kaiming, Jian Sun, and Xiaoou Tang. "Guided image filtering." _European conference on computer vision_. Springer, Berlin, Heidelberg, 2010.
+- He, Kaiming, Jian Sun, and Xiaoou Tang. "Guided image filtering." _IEEE transactions on pattern analysis and machine intelligence_ 35.6 (2012): 1397-1409.
+
+To execute this program you need [octave](https://www.gnu.org/software/octave/), a C compiler and [make](https://www.gnu.org/software/make/).
 
 
 ## Installation
 
-First we need to install the image package from Octave. Start Octave by typing `octave` in a terminal. Then, simply do
+First install Octave's image package. Start Octave by typing `octave` in a terminal, then simply do
 ```
 pkg install image
 ```
 from the Octave prompt.
 
-Then we need to compile the mex files that make the interface between Octave and [iio](https://github.com/mnhrdt/iio). Simply type
+Then compile the mex files that make the interface between Octave and [iio](https://github.com/mnhrdt/iio) (included). Simply type
 ```bash
 make -C iio
 ```
-This will create the files `iio/iio_read.mex` and `iio/iio_write.mex` which are used to read and write images.
+This will create the files `iio/iio_read.mex` and `iio/iio_write.mex` which are used to read and write images in Octave.
 
 
 ## Usage
@@ -36,6 +40,9 @@ this outputs:
 
 All common image formats can be read and written, and some less common too. In particular, floating point tiff images are handled.
 
+A good value for `sqrteps` is the standard deviation of the noise; a good
+value for `radius` is 1 or 2% of the image width or height.
+
 Each of the `n` channels of the input image are filtered using the `n + m` channels available, where `m` is the number of channels of the guide image (when no guide is provided `m = 0`). In this program the maximal value for `n + m` is 3.
 
 The filtered image is saved in the given output directory with the same name as the input image.
@@ -43,15 +50,15 @@ The filtered image is saved in the given output directory with the same name as 
 
 ## Example
 
-Let's say we have a directory called `in` with the images `image_vis.tif` and `image_ir.tif` inside.
-We can denoise it by running:
+Assuming we have a directory called `in` with the images `image_vis.tif` and `image_ir.tif` inside.
+We can denoise the `vis` image by running:
 ```
 ./denoise_with_gf.m in/image_vis.tif NULL out 52 7
 ```
-or using a guide by running:
+or, using a guide, by running:
 ```
 ./denoise_with_gf.m in/image_vis.tif in/image_ir.tif out 52 7
 ```
-In both cases the output image is `out/image_vis.tif`.
+In both cases the output image is saved as `out/image_vis.tif`.
 
 
