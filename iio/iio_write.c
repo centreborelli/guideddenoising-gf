@@ -125,7 +125,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 		case mxCELL_CLASS:
 		case mxSTRUCT_CLASS:
 		case mxCHAR_CLASS:
-		case mxVOID_CLASS:
 		case mxFUNCTION_CLASS:
 			mexErrMsgTxt("Invalid class.");
 			break;
