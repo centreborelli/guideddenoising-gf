@@ -98,7 +98,7 @@ for channel = 1:2
     b     = Im - sum(a .* Gm, 3);
 
     % compute output gray image
-    R(:,:,channel) = sum(a .* G, 3) + b;
+    R(:,:,channel) = sum(fmean(a, radius) .* G, 3) + fmean(b, radius);
 end
 
 
@@ -147,7 +147,7 @@ for channel = 1:3
     b     = Im - sum(a .* Gm, 3);
 
     % compute output gray image
-    R(:,:,channel) = sum(a .* G, 3) + b;
+    R(:,:,channel) = sum(fmean(a, radius) .* G, 3) + fmean(b, radius);
 end
 
 
