@@ -63,7 +63,7 @@ v = gf_multichannel(u, (sqrteps / 255)^2, radius);
 
 %%% Save the output
 if ~isempty(g_path)
-  iio_write(v_path, single(v(:, :, 1) * 255));  % both channels are filtered
+  iio_write(v_path, single(v(:,:,1) * 255));  % both channels are filtered
 else
   iio_write(v_path, single(v * 255));  % there is only one channel
 end
